@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sales Interview Feedback</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Georgia,'Times New Roman',serif}
+  body{background:#F0EDE6;min-height:100vh}
+  .topnav{background:#0F1628;padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+  .nav-left{display:flex;align-items:center;gap:12px}
+  .nav-logo{width:38px;height:38px;border-radius:8px;background:#B8860B;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;font-family:sans-serif}
+  .nav-brand-name{font-size:14px;font-weight:600;color:#fff;font-family:sans-serif;letter-spacing:0.01em}
+  .nav-brand-sub{font-size:11px;color:rgba(255,255,255,0.5);font-family:sans-serif}
+  .nav-right{display:flex;align-items:center;gap:8px}
+  .nav-btn{padding:6px 14px;border-radius:6px;font-size:12px;font-family:sans-serif;font-weight:500;cursor:pointer;border:none;color:rgba(255,255,255,0.6);background:transparent;letter-spacing:0.02em}
+  .nav-btn.active{background:#B8860B;color:#fff}
+  .nav-btn i{margin-right:5px;font-size:12px}
+  .page-hero{text-align:center;padding:36px 20px 24px}
+  .hero-badge{display:inline-block;border:1px solid #B8860B;color:#B8860B;font-size:10px;font-family:sans-serif;letter-spacing:0.12em;padding:5px 16px;border-radius:20px;margin-bottom:18px;text-transform:uppercase}
+  .hero-title{font-size:30px;font-weight:700;color:#0F1628;letter-spacing:-0.02em;margin-bottom:8px}
+  .hero-sub{font-size:14px;color:#666;font-family:sans-serif}
+  .form-wrap{max-width:780px;margin:0 auto;padding:0 20px 40px}
+  .form-card{background:#fff;border-radius:12px;border:1px solid #E0DAD0;overflow:hidden;margin-bottom:16px}
+  .fc-head{padding:16px 22px;border-bottom:1px solid #F0EDE6;display:flex;align-items:center;gap:12px}
+  .fc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .fc-icon-gold{background:#FDF3DC;color:#B8860B}
+  .fc-icon-navy{background:#E8EBF2;color:#0F1628}
+  .fc-title{font-size:15px;font-weight:600;color:#0F1628;font-family:sans-serif}
+  .fc-sub{font-size:12px;color:#999;font-family:sans-serif;margin-top:2px}
+  .fc-body{padding:22px}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+  .field:last-child{margin-bottom:0}
+  .field label{font-size:12px;color:#888;font-family:sans-serif;letter-spacing:0.01em}
+  .field input,.field select,.field textarea{font-size:14px;font-family:sans-serif;color:#1a1a1a;padding:10px 13px;border:1px solid #DDD8CF;border-radius:6px;background:#FAFAF8;width:100%;transition:border-color 0.15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#B8860B;background:#fff}
+  .field textarea{resize:vertical;height:84px;line-height:1.6}
+  .branch-drop{display:none;margin-top:14px}
+  .branch-drop.show{display:block}
+  .divider{height:1px;background:#F0EDE6;margin:18px 0}
+  .stars-row{display:flex;align-items:center;gap:6px;margin-top:4px}
+  .star{font-size:24px;cursor:pointer;color:#D8D2C8;user-select:none;transition:color 0.1s;line-height:1}
+  .star.on{color:#B8860B}
+  .star-lbl{font-size:12px;color:#999;font-family:sans-serif;margin-left:8px}
+  .sec-label{font-size:10px;font-weight:600;color:#B8860B;font-family:sans-serif;text-transform:uppercase;letter-spacing:0.1em;margin:18px 0 10px}
+  .sec-label:first-child{margin-top:4px}
+  .pos-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+  .pos-chip{padding:7px 14px;border:1px solid #DDD8CF;border-radius:6px;font-size:13px;font-family:sans-serif;cursor:pointer;color:#555;background:#FAFAF8;transition:all 0.12s}
+  .pos-chip:hover{border-color:#B8860B;color:#B8860B}
+  .pos-chip.sel{background:#FDF3DC;border-color:#B8860B;color:#7A5C00;font-weight:600}
+  .rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .rec-card{border:1px solid #DDD8CF;border-radius:8px;padding:14px 10px;cursor:pointer;text-align:center;background:#FAFAF8;transition:all 0.12s}
+  .rec-card:hover{border-color:#B8860B}
+  .rec-card i{font-size:22px;color:#BDB5A8;display:block;margin-bottom:7px}
+  .rec-card .rc-title{font-size:13px;font-weight:600;color:#333;font-family:sans-serif}
+  .rec-card .rc-sub{font-size:11px;color:#999;font-family:sans-serif;margin-top:3px}
+  .rec-card.sel-strong{border-color:#0F1628;background:#E8EBF2}
+  .rec-card.sel-strong i,.rec-card.sel-strong .rc-title{color:#0F1628}
+  .rec-card.sel-yes{border-color:#B8860B;background:#FDF3DC}
+  .rec-card.sel-yes i,.rec-card.sel-yes .rc-title{color:#7A5C00}
+  .rec-card.sel-no{border-color:#C0392B;background:#FDF0EF}
+  .rec-card.sel-no i,.rec-card.sel-no .rc-title{color:#922B21}
+  .fc-footer{padding:16px 22px;border-top:1px solid #F0EDE6;display:flex;justify-content:flex-end;gap:10px;background:#FAFAF8}
+  .btn-ghost{padding:9px 20px;font-size:13px;font-family:sans-serif;font-weight:500;border:1px solid #DDD8CF;border-radius:6px;cursor:pointer;background:#fff;color:#555}
+  .btn-ghost:hover{background:#F5F2EE}
+  .btn-gold{padding:9px 22px;font-size:13px;font-family:sans-serif;font-weight:600;border:none;border-radius:6px;cursor:pointer;background:#B8860B;color:#fff;display:inline-flex;align-items:center;gap:7px}
+  .btn-gold:hover{background:#9A6E08}
+  .btn-gold:disabled{background:#CCC;cursor:not-allowed}
+  .alert{padding:12px 16px;border-radius:6px;font-size:13px;font-family:sans-serif;margin-bottom:14px;display:flex;align-items:center;gap:10px;border-left:3px solid}
+  .alert-success{background:#F0F9F0;border-color:#27AE60;color:#1E6B3A}
+  .alert-error{background:#FEF0F0;border-color:#E74C3C;color:#922B21}
+  .alert-info{background:#FDF8EC;border-color:#B8860B;color:#7A5C00}
+  .records-wrap{background:#fff;border-radius:12px;border:1px solid #E0DAD0;overflow:hidden}
+  .rec-head{background:#0F1628;padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
+  .rec-head-title{font-size:14px;font-weight:600;color:#fff;font-family:sans-serif}
+  .rec-head-count{font-size:12px;color:rgba(255,255,255,0.5);font-family:sans-serif}
+  .export-btn{padding:7px 14px;font-size:12px;font-family:sans-serif;font-weight:500;border:1px solid rgba(255,255,255,0.3);border-radius:6px;cursor:pointer;background:transparent;color:#fff;display:inline-flex;align-items:center;gap:6px}
+  .export-btn:hover{background:rgba(255,255,255,0.1)}
+  .entry-row{padding:14px 22px;border-bottom:1px solid #F5F2EE}
+  .entry-row:last-child{border-bottom:none}
+  .entry-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+  .entry-name{font-size:15px;font-weight:600;color:#0F1628;font-family:sans-serif}
+  .entry-date{font-size:11px;color:#999;font-family:sans-serif}
+  .entry-info{font-size:13px;color:#666;font-family:sans-serif;margin-top:3px}
+  .entry-note{font-size:13px;color:#888;font-family:sans-serif;font-style:italic;margin-top:6px;padding-top:6px;border-top:1px solid #F5F2EE}
+  .badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:600;font-family:sans-serif;margin-left:6px;text-transform:uppercase;letter-spacing:0.05em}
+  .b-navy{background:#E8EBF2;color:#0F1628}
+  .b-gold{background:#FDF3DC;color:#7A5C00}
+  .b-red{background:#FDF0EF;color:#922B21}
+  .b-area{background:#F5F2EE;color:#555}
+  .empty-state{padding:3rem;text-align:center;color:#999;font-size:14px;font-family:sans-serif}
+  .empty-state i{font-size:38px;display:block;margin-bottom:10px;opacity:0.3;color:#B8860B}
+  @media(max-width:600px){
+    .g2{grid-template-columns:1fr}
+    .rec-grid{grid-template-columns:1fr}
+    .topnav{padding:0 14px}
+    .hero-title{font-size:22px}
+    .fc-body{padding:14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="nav-left">
+    <div class="nav-logo">SI</div>
+    <div>
+      <div class="nav-brand-name">Sales Interview Portal</div>
+      <div class="nav-brand-sub">Candidate Evaluation System</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-btn active" onclick="showTab('form',this)"><i class="ti ti-forms"></i>New Evaluation</button>
+    <button class="nav-btn" onclick="showTab('entries',this)"><i class="ti ti-table"></i>Records</button>
+  </div>
+</div>
+
+<div id="tab-form">
+  <div class="page-hero">
+    <div class="hero-badge">Candidate Assessment</div>
+    <div class="hero-title">Sales Interview Feedback</div>
+    <div class="hero-sub">Your evaluation helps us make the right hiring decision</div>
+  </div>
+  <div class="form-wrap">
+    <div id="msg-area"></div>
+
+    <div class="form-card">
+      <div class="fc-head">
+        <div class="fc-icon fc-icon-gold"><i class="ti ti-user-check"></i></div>
+        <div>
+          <div class="fc-title">Interviewer Information</div>
+          <div class="fc-sub">Select your role and the session date</div>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="g2">
+          <div class="field">
+            <label>Session Date</label>
+            <input type="date" id="f-date" />
+          </div>
+          <div class="field">
+            <label>Your Role</label>
+            <select id="f-interviewer" onchange="handleInterviewer(this.value)">
+              <option value="">— Select your role —</option>
+              <option>Branch Manager</option>
+              <option>National KA Manager</option>
+              <option>National Lower Trade Manager</option>
+              <option>Sales Manager</option>
+              <option>HR Manager</option>
+              <option>HR Supervisor</option>
+              <option>CEO</option>
+            </select>
+          </div>
+        </div>
+        <div class="branch-drop" id="branch-drop">
+          <div class="field" style="max-width:50%">
+            <label>Branch Area</label>
+            <select id="f-branch">
+              <option value="">— Select branch —</option>
+              <option>Riyadh</option>
+              <option>Jeddah</option>
+              <option>Dammam</option>
+              <option>South</option>
+              <option>Madina</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="fc-head">
+        <div class="fc-icon fc-icon-navy"><i class="ti ti-user"></i></div>
+        <div>
+          <div class="fc-title">Candidate Information</div>
+          <div class="fc-sub">Enter the candidate's details</div>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="g2">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" id="f-name" placeholder="e.g. Ahmed Al-Rashid" />
+          </div>
+          <div class="field">
+            <label>Candidate Area</label>
+            <select id="f-area">
+              <option value="">— Select area —</option>
+              <option>Riyadh</option>
+              <option>Jeddah</option>
+              <option>Dammam</option>
+              <option>South</option>
+              <option>Madina</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="fc-head">
+        <div class="fc-icon fc-icon-gold"><i class="ti ti-chart-bar"></i></div>
+        <div>
+          <div class="fc-title">Assessment & Evaluation</div>
+          <div class="fc-sub">Rate the candidate and select suitable positions</div>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="field">
+          <label>Overall Rating</label>
+          <div class="stars-row">
+            <span class="star" data-v="1">★</span>
+            <span class="star" data-v="2">★</span>
+            <span class="star" data-v="3">★</span>
+            <span class="star" data-v="4">★</span>
+            <span class="star" data-v="5">★</span>
+            <span class="star-lbl" id="star-lbl">Not rated yet</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="field">
+          <label>Suitable Position(s) — select all that apply</label>
+          <div class="sec-label">Sales</div>
+          <div class="pos-grid">
+            <span class="pos-chip" data-p="Sales Mix">Sales Mix</span>
+            <span class="pos-chip" data-p="Sales Retail">Sales Retail</span>
+            <span class="pos-chip" data-p="Sales Wholesale">Sales Wholesale</span>
+            <span class="pos-chip" data-p="Sales Disc">Sales Disc</span>
+            <span class="pos-chip" data-p="Sales Supervisor">Sales Supervisor</span>
+          </div>
+          <div class="sec-label">Key Accounts</div>
+          <div class="pos-grid">
+            <span class="pos-chip" data-p="KA Runner">KA Runner</span>
+            <span class="pos-chip" data-p="KA Supervisor">KA Supervisor</span>
+          </div>
+          <div class="sec-label">Management</div>
+          <div class="pos-grid">
+            <span class="pos-chip" data-p="Assistant UM">Assistant UM</span>
+            <span class="pos-chip" data-p="UM">UM</span>
+            <span class="pos-chip" data-p="RSM">RSM</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="field">
+          <label>Hire Recommendation</label>
+          <div class="rec-grid">
+            <div class="rec-card" data-r="Strong Yes" onclick="selectRec(this,'sel-strong')">
+              <i class="ti ti-rocket"></i>
+              <div class="rc-title">Strong Yes</div>
+              <div class="rc-sub">Hire immediately</div>
+            </div>
+            <div class="rec-card" data-r="Yes" onclick="selectRec(this,'sel-yes')">
+              <i class="ti ti-thumb-up"></i>
+              <div class="rc-title">Yes</div>
+              <div class="rc-sub">Recommended</div>
+            </div>
+            <div class="rec-card" data-r="No" onclick="selectRec(this,'sel-no')">
+              <i class="ti ti-thumb-down"></i>
+              <div class="rc-title">No</div>
+              <div class="rc-sub">Not suitable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="fc-head">
+        <div class="fc-icon fc-icon-navy"><i class="ti ti-notes"></i></div>
+        <div>
+          <div class="fc-title">Feedback & Remarks</div>
+          <div class="fc-sub">Provide detailed observations about the candidate</div>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="field">
+          <label>Strengths Observed</label>
+          <textarea id="f-strengths" placeholder="What stood out positively about this candidate…"></textarea>
+        </div>
+        <div class="field">
+          <label>Concerns / Weaknesses</label>
+          <textarea id="f-concerns" placeholder="Any concerns, gaps, or areas for development…"></textarea>
+        </div>
+        <div class="field">
+          <label>Additional Notes</label>
+          <textarea id="f-notes" placeholder="Any other remarks…" style="height:64px"></textarea>
+        </div>
+      </div>
+      <div class="fc-footer">
+        <button class="btn-ghost" onclick="resetForm()"><i class="ti ti-refresh"></i> Clear</button>
+        <button class="btn-gold" id="submit-btn" onclick="submitFeedback()"><i class="ti ti-send"></i> Submit Evaluation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-entries" style="display:none">
+  <div class="page-hero">
+    <div class="hero-badge">Evaluation Records</div>
+    <div class="hero-title">Submitted Evaluations</div>
+    <div class="hero-sub">All candidate evaluations submitted in this session</div>
+  </div>
+  <div class="form-wrap">
+    <div class="records-wrap">
+      <div class="rec-head">
+        <div>
+          <div class="rec-head-title">Evaluation Records</div>
+          <div class="rec-head-count" id="rec-count">0 submissions</div>
+        </div>
+        <button class="export-btn" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
+      </div>
+      <div id="entries-container">
+        <div class="empty-state"><i class="ti ti-inbox"></i>No evaluations submitted yet.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SHEET_URL='https://script.google.com/macros/s/AKfycbzdyjybCw0p5ZjxC1ByXPyGNZb_TL6juPLB7BTr-NepyuyRAU-YqIdfVarvH8ze55F9/exec';
+var rating=0,selectedPos=[],selectedRec='',entries=[];
+var lbls=['','Poor','Below average','Average','Good','Excellent'];
+
+window.addEventListener('load',function(){
+  document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
+});
+
+function showTab(t,btn){
+  document.getElementById('tab-form').style.display=t==='form'?'block':'none';
+  document.getElementById('tab-entries').style.display=t==='entries'?'block':'none';
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  if(t==='entries') renderEntries();
+}
+
+function handleInterviewer(val){
+  var d=document.getElementById('branch-drop');
+  if(val==='Branch Manager') d.classList.add('show');
+  else{d.classList.remove('show');document.getElementById('f-branch').value='';}
+}
+
+document.querySelectorAll('.star').forEach(function(s){
+  s.addEventListener('click',function(){
+    rating=parseInt(this.dataset.v);
+    document.querySelectorAll('.star').forEach(function(x){x.classList.toggle('on',parseInt(x.dataset.v)<=rating);});
+    document.getElementById('star-lbl').textContent=lbls[rating]+' ('+rating+' / 5)';
+  });
+});
+
+document.querySelectorAll('.pos-chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var p=this.dataset.p,i=selectedPos.indexOf(p);
+    if(i>-1){selectedPos.splice(i,1);this.classList.remove('sel');}
+    else{selectedPos.push(p);this.classList.add('sel');}
+  });
+});
+
+function selectRec(el,cls){
+  document.querySelectorAll('.rec-card').forEach(function(r){r.className='rec-card';});
+  el.classList.add(cls);selectedRec=el.dataset.r;
+}
+
+function showMsg(msg,type){
+  var a=document.getElementById('msg-area');
+  var icon=type==='success'?'circle-check':type==='error'?'alert-circle':'info-circle';
+  a.innerHTML='<div class="alert alert-'+type+'"><i class="ti ti-'+icon+'" style="font-size:16px"></i>'+msg+'</div>';
+  setTimeout(function(){a.innerHTML='';},5000);
+}
+
+function submitFeedback(){
+  var d=document.getElementById('f-date').value;
+  var name=document.getElementById('f-name').value.trim();
+  var area=document.getElementById('f-area').value;
+  var intr=document.getElementById('f-interviewer').value;
+  var branch=document.getElementById('f-branch').value;
+  if(!d||!name||!area||!intr||!rating||!selectedPos.length||!selectedRec){
+    showMsg('Please complete all required fields before submitting.','error');return;
+  }
+  if(intr==='Branch Manager'&&!branch){showMsg('Please select the branch area.','error');return;}
+  var payload={date:d,candidate_name:name,candidate_area:area,interviewer:intr,branch_area:branch||'-',rating:rating+'/5',suitable_positions:selectedPos.join(', '),recommendation:selectedRec,strengths:document.getElementById('f-strengths').value,concerns:document.getElementById('f-concerns').value,notes:document.getElementById('f-notes').value,submitted_at:new Date().toISOString()};
+  entries.unshift(payload);
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.innerHTML='<i class="ti ti-loader"></i> Submitting…';
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify(payload)})
+    .then(function(r){return r.json();})
+    .then(function(res){showMsg(res.status==='ok'?'Evaluation submitted and synced to Google Sheet successfully.':'Saved locally. Error: '+res.message,res.status==='ok'?'success':'info');})
+    .catch(function(){showMsg('Saved locally. Could not reach Google Sheet.','info');})
+    .finally(function(){btn.disabled=false;btn.innerHTML='<i class="ti ti-send"></i> Submit Evaluation';resetForm();});
+}
+
+function resetForm(){
+  ['f-name','f-strengths','f-concerns','f-notes'].forEach(function(id){document.getElementById(id).value='';});
+  ['f-area','f-interviewer','f-branch'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('branch-drop').classList.remove('show');
+  rating=0;
+  document.querySelectorAll('.star').forEach(function(s){s.classList.remove('on');});
+  document.getElementById('star-lbl').textContent='Not rated yet';
+  selectedPos=[];document.querySelectorAll('.pos-chip').forEach(function(c){c.classList.remove('sel');});
+  selectedRec='';document.querySelectorAll('.rec-card').forEach(function(r){r.className='rec-card';});
+}
+
+function renderEntries(){
+  var el=document.getElementById('entries-container');
+  document.getElementById('rec-count').textContent=entries.length+' submission'+(entries.length!==1?'s':'');
+  if(!entries.length){el.innerHTML='<div class="empty-state"><i class="ti ti-inbox"></i>No evaluations submitted yet.</div>';return;}
+  var bm={'Strong Yes':'b-navy','Yes':'b-gold','No':'b-red'};
+  el.innerHTML=entries.map(function(e){
+    var ba=e.branch_area&&e.branch_area!=='-'?' · '+e.branch_area:'';
+    return '<div class="entry-row"><div class="entry-top"><div><span class="entry-name">'+e.candidate_name+'</span><span class="badge b-area">'+e.candidate_area+'</span><span class="badge '+(bm[e.recommendation]||'b-gold')+'">'+e.recommendation+'</span></div><span class="entry-date">'+e.date+'</span></div><div class="entry-info">'+e.interviewer+ba+' · ★ '+e.rating+' · '+e.suitable_positions+'</div>'+(e.strengths?'<div class="entry-note">'+e.strengths+'</div>':'')+'</div>';
+  }).join('');
+}
+
+function exportCSV(){
+  if(!entries.length){alert('No records to export.');return;}
+  var h=['Date','Candidate Name','Candidate Area','Interviewer','Branch Area','Rating','Suitable Positions','Recommendation','Strengths','Concerns','Notes','Submitted At'];
+  var k=['date','candidate_name','candidate_area','interviewer','branch_area','rating','suitable_positions','recommendation','strengths','concerns','notes','submitted_at'];
+  var rows=[h.join(',')];
+  entries.forEach(function(e){rows.push(k.map(function(key){return '"'+(e[key]||'').toString().replace(/"/g,'""')+'"';}).join(','));});
+  var blob=new Blob(['\uFEFF'+rows.join('\r\n')],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);var a=document.createElement('a');
+  a.href=url;a.download='sales_interview_feedback.csv';a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
